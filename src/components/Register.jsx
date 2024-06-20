@@ -25,7 +25,7 @@ const Register = ({ toggleForm }) => {
                 password
             });
 
-            navigate('/loginpage', { state: { user: { email: user.email, uid: user.uid } } });
+            navigate('/profilepage', { state: { user: { email: user.email, uid: user.uid } } });
         } catch (error) {
             setError(error.message);
         }
