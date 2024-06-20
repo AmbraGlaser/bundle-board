@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --background-light: #E5E4E3;
+    --background-dark: #000501;
+}
+
+body,
+html,
+#root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-light);
+}
+
+body.dark-mode,
+html.dark-mode,
+#root.dark-mode {
+    background-color: var(--background-dark);
+}
