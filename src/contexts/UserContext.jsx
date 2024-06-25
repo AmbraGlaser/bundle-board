@@ -11,8 +11,10 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
+        console.log("User is logged in:", currentUser);
         setUser(currentUser);
       } else {
+        console.log("No user is logged in");
         setUser(null);
       }
     });

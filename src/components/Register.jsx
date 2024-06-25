@@ -1,70 +1,91 @@
-import React from 'react';
+// src/components/Register.jsx
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  auth,
+  createUserWithEmailAndPassword,
+  setDoc,
+  doc,
+} from "../services/FirebaseConfig";
+import { UserContext } from "../contexts/UserContext";
 
-const Register = ({ email, setEmail, password, setPassword, name, setName, toggleForm }) => {
-    return (
-        <>
-            <div className="mb-5">
-                <label
-                    htmlFor="name"
-                    className="block mb-2 text-sm font-medium text-purple dark:text-light-blue"
-                >
-                    Your name
-                </label>
-                <input
-                    type="text"
-                    id="name"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="John Doe"
-                    required
-                />
-            </div>
-            <div className="mb-5">
-                <label
-                    htmlFor="email"
-                    className="block mb-2 text-sm font-medium text-purple dark:text-light-blue"
-                >
-                    Your email
-                </label>
-                <input
-                    type="email"
-                    id="email"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="name@email.com"
-                    required
-                />
-            </div>
-            <div className="mb-5">
-                <label
-                    htmlFor="password"
-                    className="block mb-2 text-sm font-medium text-purple dark:text-light-blue"
-                >
-                    Your password
-                </label>
-                <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required
-                />
-            </div>
-            <p className="mt-5 text-sm text-dark dark:text-light">
-                Already have an account?{" "}
-                <button
-                    type="button"
-                    onClick={toggleForm}
-                    className="text-purple dark:text-light-blue hover:underline"
-                >
-                    Login
-                </button>
-            </p>
-        </>
-    );
+const Register = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [error, setError] = useState(null);
+  const { setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setError(null);
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
+        name: name,
+      });
+      setUser({ ...user, name: name });
+      navigate("/profilepage");
+    } catch (error) {
+      setError(error.message);
+      console.error("Error registering:", error);
+    }
+  };
+
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <div className="flex flex-col m-4 p-6 bg-white rounded shadow-md w-full max-w-md">
+        <h1 className="text-2xl mb-4">Register</h1>
+        <form onSubmit={handleRegister}>
+          <div className="mb-4">
+            <label className="block mb-1">Name</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full px-3 py-2 border rounded"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1">Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-3 py-2 border rounded"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-1">Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-3 py-2 border rounded"
+              required
+            />
+          </div>
+          {error && <p className="text-red-600">{error}</p>}
+          <button
+            type="submit"
+            className="w-full px-4 py-2 bg-blue-600 text-white rounded"
+          >
+            Register
+          </button>
+        </form>
+      </div>
+    </div>
+  );
 };
 
 export default Register;

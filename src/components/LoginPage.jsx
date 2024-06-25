@@ -43,7 +43,7 @@ const LoginPage = () => {
         const userDoc = await getDoc(doc(db, "users", user.uid));
 
         if (userDoc.exists()) {
-          setUser(userDoc.data());
+          setUser({ ...user, ...userDoc.data() });
           navigate("/profilepage");
         } else {
           setError("User data not found");
@@ -63,11 +63,10 @@ const LoginPage = () => {
         const userData = {
           email,
           name,
-          password, // Opslaan van het wachtwoord in Firestore (niet aanbevolen in productieomgevingen)
         };
 
         await setDoc(doc(db, "users", user.uid), userData);
-        setUser(userData);
+        setUser({ ...user, ...userData });
         navigate("/profilepage");
       } catch (error) {
         setError(error.message);
