@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import { auth } from "../services/FirebaseConfig";
 
@@ -7,6 +7,7 @@ const Profile = () => {
   const { user, setUser } = useContext(UserContext);
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = async () => {
     try {
@@ -18,9 +19,25 @@ const Profile = () => {
     }
   };
 
+  const handleProfileClick = () => {
+    if (!user) {
+      navigate("/loginpage");
+    } else {
+      setShowMenu(!showMenu);
+    }
+  };
+
+  const handleProfile = () => {
+    navigate("/profilepage");
+  };
+
+  useEffect(() => {
+    setShowMenu(false);
+  }, [location]);
+
   return (
     <div className="relative">
-      <div onClick={() => setShowMenu(!showMenu)} className="cursor-pointer">
+      <div onClick={handleProfileClick} className="cursor-pointer">
         <div className="relative w-10 h-10 overflow-hidden bg-light rounded-full dark:bg-dark">
           <svg
             className="absolute w-12 h-12 font-Secundair text-purple -left-1 dark:text-light-blue"
@@ -45,12 +62,12 @@ const Profile = () => {
           </div>
           <div className="border-t border-gray-200 dark:border-dark"></div>
           <div className="px-4 py-2">
-            <Link
-              to="/profilepage"
+            <button
+              onClick={handleProfile}
               className="block text-purple dark:text-light-blue hover:bg-gray-100 dark:hover:bg-gray-700 px-4 py-2 rounded-lg"
             >
               Profile
-            </Link>
+            </button>
             <button
               onClick={handleLogout}
               className="block w-full text-left text-purple dark:text-light-blue hover:bg-gray-100 dark:hover:bg-gray-700 px-4 py-2 rounded-lg"
