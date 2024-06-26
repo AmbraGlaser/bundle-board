@@ -13,6 +13,7 @@ import LoginPage from "./components/LoginPage.jsx";
 import DetailPage from "./components/DetailPage.jsx";
 import AiGeneration from "./components/AiGeneration.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import DetailBoards from "./components/DetailBoards.jsx";
 
 const routes = [
   {
@@ -30,6 +31,10 @@ const routes = [
             <ProfilePage />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: "/boards/:boardId",
+        element: <DetailBoards />,
       },
     ],
   },

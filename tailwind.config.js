@@ -12,6 +12,7 @@ export default {
       light: "#E5E4E3",
       purple: "#7D84B2",
       "light-blue": "#BCF8EC",
+      red: "#dc2626"
     },
     dropShadow: {
       "light-blue": "0 10px 8px rgb(188, 248, 236)",

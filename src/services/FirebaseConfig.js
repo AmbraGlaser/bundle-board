@@ -1,6 +1,25 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, setDoc, updateDoc, arrayUnion, getDoc, collection, getDocs } from "firebase/firestore";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getFirestore,
+  doc,
+  addDoc,
+  setDoc,
+  deleteDoc,
+  updateDoc,
+  arrayUnion,
+  getDoc,
+  collection,
+  getDocs,
+  arrayRemove
+} from "firebase/firestore";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  setPersistence,
+  browserSessionPersistence,
+  deleteUser,
+} from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -11,9 +30,15 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_APP_ID,
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
+
+// Set the persistence for the authentication session
+setPersistence(auth, browserSessionPersistence).catch((error) => {
+  console.error("Error setting persistence:", error);
+});
 
 export {
   db,
@@ -26,5 +51,9 @@ export {
   arrayUnion,
   getDoc,
   collection,
-  getDocs
+  getDocs,
+  addDoc,
+  deleteDoc,
+  deleteUser,
+  arrayRemove
 };

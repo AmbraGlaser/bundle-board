@@ -32,6 +32,21 @@ const LoginPage = () => {
     e.preventDefault();
     setError(null);
 
+    if (!email || !password || (!isLogin && !name)) {
+      setError("All fields are required");
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("Invalid email format");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password should be at least 6 characters long");
+      return;
+    }
+
     if (isLogin) {
       try {
         const userCredential = await signInWithEmailAndPassword(
