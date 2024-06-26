@@ -49,7 +49,7 @@ const Footer = () => {
       <span
         className={`text-sm ${
           isDarkMode ? "dark:text-light-blue" : "text-purple"
-        } sm:text-center font-Secundair`}
+        } text-purple dark:text-light-blue sm:text-center font-Secundair`}
       >
         © 2024 Bundle Board™
       </span>

@@ -103,9 +103,14 @@ const ProfilePage = () => {
   return (
     <div className="flex flex-col items-center">
       <h1 className="text-2xl font-bold font-Title text-purple dark:text-light-blue">
-        Welkom {userData?.name || "Guest"}
+        Welcome {userData?.name || "Guest"}
       </h1>
-      <button onClick={() => setIsModalOpen(true)}>Change Name</button>
+      <button
+        className="text-purple dark:text-light-blue"
+        onClick={() => setIsModalOpen(true)}
+      >
+        Change Name
+      </button>
       <div className="mt-6 w-full max-w-6xl">
         <h2 className="text-xl font-semibold text-center text-purple dark:text-light-blue mb-4">
           Your Inspiration Boards
@@ -114,7 +119,7 @@ const ProfilePage = () => {
           {boards.length > 0 ? (
             boards.map((board) => (
               <Link to={`/boards/${board.id}`} key={board.id} className="w-64">
-                <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md">
+                <div className="bg-light dark:bg-dark p-4 rounded-lg shadow-md">
                   <h3 className="text-lg font-semibold text-purple dark:text-light-blue mb-2">
                     {board.title}
                   </h3>
@@ -129,7 +134,7 @@ const ProfilePage = () => {
                         />
                       ))
                     ) : (
-                      <p className="text-gray-500 dark:text-gray-400">
+                      <p className="text-purple dark:text-light-blue">
                         No photos
                       </p>
                     )}
@@ -138,18 +143,23 @@ const ProfilePage = () => {
               </Link>
             ))
           ) : (
-            <p className="text-gray-500 dark:text-gray-400">
+            <p className="text-purple dark:text-light-blue">
               No inspiration boards found.
             </p>
           )}
         </div>
-        <button onClick={handleDeleteAccount}>Delete Account</button>
+        <button
+          className="text-purple dark:text-light-blue"
+          onClick={handleDeleteAccount}
+        >
+          Delete Account
+        </button>
       </div>
       {isModalOpen && (
         <Modal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          title="Wil je je naam veranderen?"
+          title="Would you like to change your name?"
         >
           <form onSubmit={handleNameChange} className="flex flex-col">
             <label className="mb-2 font-bold text-purple dark:text-light-blue">
@@ -159,20 +169,20 @@ const ProfilePage = () => {
               type="text"
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
-              className="p-2 mb-4 border rounded"
+              className="p-2 mb-4 border rounded text-purple dark:text-light-blue"
               required
             />
             <div className="flex justify-end gap-4">
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="px-4 py-2 bg-light dark:bg-dark text-white rounded"
+                className="px-4 py-2 bg-light dark:bg-dark text-purple dark:text-light-blue rounded"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-light dark:bg-dark text-white rounded"
+                className="px-4 py-2 bg-light dark:bg-dark text-purple dark:text-light-blue rounded"
               >
                 Change Name
               </button>

@@ -86,7 +86,7 @@ const Header = () => {
               onClick={handleCreateBoard}
               className="font-Title text-purple dark:text-light-blue"
             >
-              Maak een nieuw bord
+              Make a new board
             </button>
             <Profile />
           </div>
@@ -121,20 +121,22 @@ const Header = () => {
         onClose={() => setShowLoginPrompt(false)}
         title="Login Required"
       >
-        <div className="flex flex-col items-center">
-          <p className="mb-4">You need to log in to create a new board.</p>
+        <div className=" text-purple dark:text-light-blueflex flex-col items-center">
+          <p className="text-purple dark:text-light-blue mb-4">
+            You need to log in to create a new board.
+          </p>
           <button
             onClick={() => {
               setShowLoginPrompt(false);
               navigate("/loginpage");
             }}
-            className="px-4 py-2 bg-purple dark:bg-light-blue text-white rounded"
+            className="px-4 py-2 text-purple dark:text-light-blue rounded"
           >
             Login
           </button>
           <button
             onClick={() => setShowLoginPrompt(false)}
-            className="mt-2 px-4 py-2 bg-gray-300 dark:bg-gray-700 text-black dark:text-white rounded"
+            className="mt-2 px-4 py-2 text-purple dark:text-light-blue rounded"
           >
             Cancel
           </button>
