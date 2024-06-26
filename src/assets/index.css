@@ -21,3 +21,14 @@ html.dark-mode,
 #root.dark-mode {
   background-color: var(--background-dark);
 }
+
+/* styles.css */
+body,
+html,
+#root {
+  height: 100%;
+}
+
+.footer-space {
+  height: 20px; /* Adjust this height as necessary */
+}

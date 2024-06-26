@@ -103,7 +103,7 @@ const ProfilePage = () => {
         Welkom {userData?.name || "Guest"}
       </h1>
       <button
-        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded"
+        className="mt-4 px-4 py-2 bg-blue-600 text-purple dark:text-light-blue rounded"
         onClick={() => setIsModalOpen(true)}
       >
         Change Name
@@ -140,13 +140,13 @@ const ProfilePage = () => {
               </Link>
             ))
           ) : (
-            <p className="text-gray-500 dark:text-gray-400">
+            <p className="text-purple dark:text-light-blue">
               No inspiration boards found.
             </p>
           )}
         </div>
         <button
-          className="mt-4 px-4 py-2 bg-red-600 text-white rounded"
+          className="mt-4 px-4 py-2 bg-light dark:bg-dark text-purple dark:text-light-blue rounded"
           onClick={handleDeleteAccount}
         >
           Delete Account

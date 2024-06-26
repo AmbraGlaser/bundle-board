@@ -5,16 +5,12 @@ import Footer from "../components/Footer";
 const AppLayout = () => {
   return (
     <>
-      <div className="flex flex-col bg-light dark:bg-dark">
-        {/* Header component die bovenaan de pagina wordt weergegeven */}
+      <div className="flex flex-col min-h-screen bg-light dark:bg-dark relative pb-20">
         <Header />
-
-        {/* Hoofdsectie van de pagina die de inhoud van de huidige route weergeeft */}
         <main className="flex-grow mt-10">
           <Outlet />
         </main>
-
-        {/* Footer component die onderaan de pagina wordt weergegeven */}
+        <div className="footer-space"></div>
         <Footer />
       </div>
     </>

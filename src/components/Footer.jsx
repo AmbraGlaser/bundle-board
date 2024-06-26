@@ -28,26 +28,28 @@ const Footer = () => {
     if (isDarkMode) {
       document.body.classList.add("dark-mode");
       document.documentElement.classList.add("dark-mode");
-      document.getElementById('root').classList.add("dark-mode");
+      document.getElementById("root").classList.add("dark-mode");
     } else {
       document.body.classList.remove("dark-mode");
       document.documentElement.classList.remove("dark-mode");
-      document.getElementById('root').classList.remove("dark-mode");
+      document.getElementById("root").classList.remove("dark-mode");
     }
   }, [isDarkMode]);
 
   return (
     // Footer sectie met dynamische achtergrondkleur en iconen voor lichte/donkere modus
     <footer
-      className={`fixed bottom-0 left-0 z-20 w-full bg-light dark:bg-dark p-4 border-t border-purple dark:border-light-blue shadow flex items-center justify-between ${isDarkMode
-        ? "bg-dark dark:bg-gray-800 dark:border-gray-600"
-        : "bg-white"
-        }`}
+      className={`fixed bottom-0 left-0 z-20 w-full bg-light dark:bg-dark p-4 border-t border-purple dark:border-light-blue shadow flex items-center justify-between ${
+        isDarkMode
+          ? "bg-dark dark:bg-gray-800 dark:border-gray-600"
+          : "bg-white"
+      }`}
     >
       {/* Tekst met het jaartal en merknaam */}
       <span
-        className={`text-sm ${isDarkMode ? "dark:text-light-blue" : "text-purple"
-          } sm:text-center font-Secundair`}
+        className={`text-sm ${
+          isDarkMode ? "dark:text-light-blue" : "text-purple"
+        } sm:text-center font-Secundair`}
       >
         © 2024 Bundle Board™
       </span>

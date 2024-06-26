@@ -1,5 +1,5 @@
 // src/components/BoardForm.jsx
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { db, collection, addDoc } from "../services/FirebaseConfig";
 import { UserContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
@@ -27,7 +27,7 @@ const BoardForm = ({ onClose }) => {
           photos: [],
         }
       );
-      onClose();
+      onClose(); // Close the popup after creating the board
       navigate(`/boards/${boardRef.id}`);
     } catch (error) {
       setError("Error creating board: " + error.message);
@@ -46,18 +46,18 @@ const BoardForm = ({ onClose }) => {
         className="p-2 mb-4 border rounded"
         required
       />
-      {error && <p className="text-red mb-4">{error}</p>}
+      {error && <p className="text-red-600 mb-4">{error}</p>}
       <div className="flex justify-end gap-4">
         <button
           type="button"
           onClick={onClose}
-          className="px-4 py-2 bg-light dark:bg-dark text-white rounded"
+          className="px-4 py-2 bg-purple dark:bg-light-blue text-white rounded"
         >
           Cancel
         </button>
         <button
           type="submit"
-          className="px-4 py-2 bg-light dark:bg-dark text-white rounded"
+          className="px-4 py-2 bg-purple dark:bg-light-blue text-white rounded"
         >
           Create Board
         </button>

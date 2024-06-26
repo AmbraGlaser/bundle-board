@@ -58,7 +58,7 @@ const Profile = () => {
         <div className="absolute right-0 mt-2 w-48 bg-light dark:bg-dark border border-gray-200 dark:border-light rounded-lg shadow-lg z-50">
           <div className="px-4 py-2">
             <p className="text-purple dark:text-light-blue">
-              Hello, {user?.name ? user.name : "Guest"}
+              Hello, {user?.name || "Guest"}
             </p>
           </div>
           <div className="border-t border-gray-200 dark:border-dark"></div>

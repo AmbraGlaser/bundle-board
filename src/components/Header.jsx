@@ -1,20 +1,20 @@
-// src/components/Header.jsx
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Profile from "./Profile";
-import Modal from "./Modal";
 import BoardForm from "./BoardForm";
+import Modal from "./Modal";
 import { UserContext } from "../contexts/UserContext";
 
 const Header = () => {
-  const { user } = useContext(UserContext);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(
     window.matchMedia("(prefers-color-scheme: dark)").matches
   );
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState(null);
+  const [showBoardForm, setShowBoardForm] = useState(false);
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -31,33 +31,18 @@ const Header = () => {
     }
   }, [isDarkMode]);
 
+  useEffect(() => {
+    setShowBoardForm(false);
+    setShowLoginPrompt(false);
+    setMenuOpen(false); // Close the menu when the route changes
+  }, [location]);
+
   const handleCreateBoard = () => {
     if (user) {
-      setModalContent(<BoardForm onClose={() => setIsModalOpen(false)} />);
+      setShowBoardForm(true);
     } else {
-      setModalContent(
-        <div className="flex flex-col justify-center items-center">
-          <p className="mb-4 text-purple dark:text-light-blue">
-            You need to be logged in to create a board.
-          </p>
-          <div className="flex gap-4">
-            <button
-              onClick={() => navigate("/loginpage")}
-              className="px-4 py-2 bg-light dark:bg-dark text-purple dark:text-light-blue rounded"
-            >
-              Login
-            </button>
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="px-4 py-2 bg-light dark:bg-dark text-purple dark:text-light-blue rounded"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      );
+      setShowLoginPrompt(true);
     }
-    setIsModalOpen(true);
   };
 
   return (
@@ -103,8 +88,8 @@ const Header = () => {
           <div className="flex-grow max-w-md mx-auto"></div>
           <div className="flex gap-5 items-center">
             <button
-              className="font-Title text-purple dark:text-light-blue"
               onClick={handleCreateBoard}
+              className="font-Title text-purple dark:text-light-blue"
             >
               Maak een nieuw bord
             </button>
@@ -119,20 +104,46 @@ const Header = () => {
       >
         <div className="flex flex-col items-center gap-5 w-full">
           <button
-            className="text-purple dark:text-light-blue"
             onClick={handleCreateBoard}
+            className="text-purple dark:text-light-blue"
           >
             Maak een nieuw bord
           </button>
           <Profile />
         </div>
       </div>
+
       <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Create a New Board"
+        isOpen={showBoardForm}
+        onClose={() => setShowBoardForm(false)}
+        title="Create New Board"
       >
-        {modalContent}
+        <BoardForm onClose={() => setShowBoardForm(false)} />
+      </Modal>
+
+      <Modal
+        isOpen={showLoginPrompt}
+        onClose={() => setShowLoginPrompt(false)}
+        title="Login Required"
+      >
+        <div className="flex flex-col items-center">
+          <p className="mb-4">You need to log in to create a new board.</p>
+          <button
+            onClick={() => {
+              setShowLoginPrompt(false);
+              navigate("/loginpage");
+            }}
+            className="px-4 py-2 bg-purple dark:bg-light-blue text-white rounded"
+          >
+            Login
+          </button>
+          <button
+            onClick={() => setShowLoginPrompt(false)}
+            className="mt-2 px-4 py-2 bg-gray-300 dark:bg-gray-700 text-black dark:text-white rounded"
+          >
+            Cancel
+          </button>
+        </div>
       </Modal>
     </header>
   );
