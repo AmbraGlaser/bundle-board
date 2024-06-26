@@ -11,7 +11,6 @@ import ProfilePage from "./components/ProfilePage.jsx";
 import Home from "./components/Home";
 import LoginPage from "./components/LoginPage.jsx";
 import DetailPage from "./components/DetailPage.jsx";
-import AiGeneration from "./components/AiGeneration.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import DetailBoards from "./components/DetailBoards.jsx";
 
@@ -23,7 +22,6 @@ const routes = [
       { path: "/", element: <Home /> },
       { path: "/loginpage", element: <LoginPage /> },
       { path: "/detail/:id", element: <DetailPage /> },
-      { path: "/aigeneration", element: <AiGeneration /> },
       {
         path: "/profilepage",
         element: (

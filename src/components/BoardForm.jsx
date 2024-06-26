@@ -35,7 +35,7 @@ const BoardForm = ({ onClose }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col">
+    <form onSubmit={handleSubmit} className="flex top-10 flex-col">
       <label className="mb-2 font-bold text-purple dark:text-light-blue">
         Board Title
       </label>
@@ -47,17 +47,17 @@ const BoardForm = ({ onClose }) => {
         required
       />
       {error && <p className="text-red-600 mb-4">{error}</p>}
-      <div className="flex justify-end gap-4">
+      <div className="flex justify-end top-10 gap-4">
         <button
           type="button"
           onClick={onClose}
-          className="px-4 py-2 bg-purple dark:bg-light-blue text-purple dark:text-light-blue rounded"
+          className="px-4 py-2 text-purple dark:text-light-blue rounded"
         >
           Cancel
         </button>
         <button
           type="submit"
-          className="px-4 py-2 bg-purple dark:bg-light-blue text-purple dark:text-light-blue rounded"
+          className="px-4 py-2 text-purple dark:text-light-blue rounded"
         >
           Create Board
         </button>

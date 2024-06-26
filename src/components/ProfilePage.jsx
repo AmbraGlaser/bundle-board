@@ -1,4 +1,3 @@
-// src/pages/ProfilePage.jsx
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import {
@@ -8,19 +7,18 @@ import {
   collection,
   getDocs,
   deleteDoc,
+  updateDoc,
 } from "../services/FirebaseConfig";
-import { Link, useNavigate } from "react-router-dom";
-import { getAuth, deleteUser } from "firebase/auth"; // Import getAuth and deleteUser
-import Modal from "../components/Modal";
-import NameChangeForm from "../components/NameChangeForm";
+import { Link } from "react-router-dom";
+import Modal from "./Modal";
 
 const ProfilePage = () => {
   const { user, setUser } = useContext(UserContext);
   const [boards, setBoards] = useState([]);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [newName, setNewName] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -58,7 +56,7 @@ const ProfilePage = () => {
           console.log("Boards fetched:", boardsList);
           setBoards(boardsList);
         } catch (error) {
-          console.error("Error fetching boards: ", error);
+          console.error("Error fetching boards:", error);
         }
       } else {
         console.log("No user logged in or user.uid is undefined");
@@ -70,17 +68,22 @@ const ProfilePage = () => {
     fetchBoards();
   }, [user]);
 
+  const handleNameChange = async (e) => {
+    e.preventDefault();
+    if (user) {
+      const userDocRef = doc(db, "users", user.uid);
+      await updateDoc(userDocRef, { name: newName });
+      setUserData({ ...userData, name: newName });
+      setIsModalOpen(false); // Close modal after updating name
+    }
+  };
+
   const handleDeleteAccount = async () => {
     if (user) {
       const userDocRef = doc(db, "users", user.uid);
-      const auth = getAuth();
-      const currentUser = auth.currentUser;
-
       try {
         await deleteDoc(userDocRef);
-        if (currentUser) {
-          await deleteUser(currentUser);
-        }
+        await deleteUser(user);
         setUser(null);
         navigate("/");
       } catch (error) {
@@ -102,12 +105,7 @@ const ProfilePage = () => {
       <h1 className="text-2xl font-bold font-Title text-purple dark:text-light-blue">
         Welkom {userData?.name || "Guest"}
       </h1>
-      <button
-        className="mt-4 px-4 py-2 bg-blue-600 text-purple dark:text-light-blue rounded"
-        onClick={() => setIsModalOpen(true)}
-      >
-        Change Name
-      </button>
+      <button onClick={() => setIsModalOpen(true)}>Change Name</button>
       <div className="mt-6 w-full max-w-6xl">
         <h2 className="text-xl font-semibold text-center text-purple dark:text-light-blue mb-4">
           Your Inspiration Boards
@@ -140,28 +138,48 @@ const ProfilePage = () => {
               </Link>
             ))
           ) : (
-            <p className="text-purple dark:text-light-blue">
+            <p className="text-gray-500 dark:text-gray-400">
               No inspiration boards found.
             </p>
           )}
         </div>
-        <button
-          className="mt-4 px-4 py-2 bg-light dark:bg-dark text-purple dark:text-light-blue rounded"
-          onClick={handleDeleteAccount}
-        >
-          Delete Account
-        </button>
+        <button onClick={handleDeleteAccount}>Delete Account</button>
       </div>
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Wil je je naam veranderen?"
-      >
-        <NameChangeForm
+      {isModalOpen && (
+        <Modal
+          isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          currentName={userData?.name || ""}
-        />
-      </Modal>
+          title="Wil je je naam veranderen?"
+        >
+          <form onSubmit={handleNameChange} className="flex flex-col">
+            <label className="mb-2 font-bold text-purple dark:text-light-blue">
+              New Name
+            </label>
+            <input
+              type="text"
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+              className="p-2 mb-4 border rounded"
+              required
+            />
+            <div className="flex justify-end gap-4">
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(false)}
+                className="px-4 py-2 bg-light dark:bg-dark text-white rounded"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-light dark:bg-dark text-white rounded"
+              >
+                Change Name
+              </button>
+            </div>
+          </form>
+        </Modal>
+      )}
     </div>
   );
 };

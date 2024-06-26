@@ -57,11 +57,6 @@ const Header = () => {
               BundleBoard
             </Link>
           </h1>
-          <h1>
-            <Link to="/aigeneration" className="text-purple font-Title">
-              test
-            </Link>
-          </h1>
         </div>
         <div className="md:hidden">
           <button
@@ -107,7 +102,7 @@ const Header = () => {
             onClick={handleCreateBoard}
             className="text-purple dark:text-light-blue"
           >
-            Maak een nieuw bord
+            Make a new board
           </button>
           <Profile />
         </div>
