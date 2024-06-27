@@ -36,7 +36,9 @@
 Voor dit project ben ik bezig met de Unsplash API, een API die foto's op display zet.
 Ik ga voor deze vite applicatie de Unsplash API gebruiken om een inspiratie website te maken. Dit ga ik combineren met een generative photo AI.
 
-- Versie 1: Vite
+- Versie 1: Snapview
+
+- Versie 2: Bundle Board
 
 <p align="right"><a href="#readme-top">back to top</a></p>
 
@@ -111,9 +113,13 @@ Ik ga voor deze vite applicatie de Unsplash API gebruiken om een inspiratie webs
 
 - [x] SignIn / SignUp -> Firebase
 
-- [] Database maken + Connection
+- [x] Database maken + Connection
 
-- [] AI API koppelen -> Copilot
+- [x] Eigen inspiratie bord kunnen opslaan & bekijken
+
+- [x] PWA maken
+
+- [] AI API koppelen
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -151,8 +157,6 @@ SOFTWARE.
 
 - Firebase
 
-- Copilot (nog bezig)
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
@@ -162,7 +166,7 @@ SOFTWARE.
 Ambra Glaser
 
 - a.glaser@student.fontys.nl
-- [Portfolio]
+- [BundleBoard]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -181,4 +185,4 @@ Ambra Glaser
 [css3]: https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white
 [html5]: https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white
 [JavaScript]: https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E
-[Portfolio]: https://www.comingsoon.net
+[BundleBoard]: https://bundleboard.netlify.app/
