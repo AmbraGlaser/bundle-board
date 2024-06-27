@@ -36,9 +36,9 @@
 Voor dit project ben ik bezig met de Unsplash API, een API die foto's op display zet.
 Ik ga voor deze vite applicatie de Unsplash API gebruiken om een inspiratie website te maken. Dit ga ik combineren met een generative photo AI.
 
-- Versie 1: Snapview
+- Versie 1: [Snapview](https://i512024.hera.fontysict.net/snapview/)
 
-- Versie 2: Bundle Board
+- Versie 2: [Bundle Board](bundleboard.netlify.app)
 
 <p align="right"><a href="#readme-top">back to top</a></p>
 
